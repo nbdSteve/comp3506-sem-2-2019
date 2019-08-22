@@ -11,6 +11,8 @@ public class Algorithms {
      * @param queue the queue to sort
      */
     public static <T extends Comparable<T>> void sortQueue(Queue<T> queue) {
+        //Base case if the queue only has 1 element
+        if (queue.size() <= 1) return;
         //Initialise the iterator to track the number of loops
         int iterator = 1;
         //Initialise elements outside of loop to stop them from being initialised each time the function loops
