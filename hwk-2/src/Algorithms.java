@@ -48,7 +48,7 @@ public class Algorithms {
         //Return the difference if the Array is only 2 numbers
         if (numbers.length == 2) return difference;
         //run the recursive call to find the missing element
-        return recursive(numbers, 1, difference);
+        return recursive(numbers, 1, difference); //O(n)
     }
 
     /**
