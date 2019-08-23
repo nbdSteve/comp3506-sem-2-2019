@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 public class AlgorithmsTest {
 
-    @Test(timeout=1000)
+    @Test(timeout = 1000)
     public void testSortQueueExample1() {
         Queue<Integer> queue = new LinkedList<>();
         queue.add(1);
@@ -16,15 +16,15 @@ public class AlgorithmsTest {
         queue.add(4);
         queue.add(2);
         Algorithms.sortQueue(queue);
-        assertEquals(1, (int)queue.remove());
-        assertEquals(2, (int)queue.remove());
-        assertEquals(3, (int)queue.remove());
-        assertEquals(4, (int)queue.remove());
-        assertEquals(5, (int)queue.remove());
+        assertEquals(1, (int) queue.remove());
+        assertEquals(2, (int) queue.remove());
+        assertEquals(3, (int) queue.remove());
+        assertEquals(4, (int) queue.remove());
+        assertEquals(5, (int) queue.remove());
         assertEquals(0, queue.size());
     }
 
-    @Test(timeout=1000)
+    @Test(timeout = 1000)
     public void testSortQueueExample2() {
         Queue<String> queue = new LinkedList<>();
         queue.add("a");
@@ -40,15 +40,53 @@ public class AlgorithmsTest {
         assertEquals("c", queue.remove());
     }
 
-    @Test(timeout=1000)
+    @Test(timeout = 1000)
+    public void testSortQueueExample3() {
+        Queue<String> queue = new LinkedList<>();
+        queue.add("a");
+        Algorithms.sortQueue(queue);
+        assertEquals("a", queue.remove());
+    }
+
+    @Test(timeout = 1000)
+    public void testSortQueueExample4() {
+        Queue<String> queue = new LinkedList<>();
+        Algorithms.sortQueue(queue);
+    }
+
+    @Test(timeout = 1000)
     public void testFindMissingNumberExample1() {
         int[] arr = {2, 4, 6, 8, 10, 12, 14, 18, 20};
         assertEquals(16, Algorithms.findMissingNumber(arr));
     }
 
-    @Test(timeout=1000)
+    @Test(timeout = 1000)
     public void testFindMissingNumberExample2() {
         int[] arr = {4, 1, -5};
         assertEquals(-2, Algorithms.findMissingNumber(arr));
+    }
+
+    @Test(timeout = 1000)
+    public void testFindMissingNumberExample3() {
+        int[] arr = {4, 1};
+        assertEquals(-3, Algorithms.findMissingNumber(arr));
+    }
+
+    @Test(timeout = 1000)
+    public void testFindMissingNumberExample4() {
+        int[] arr = {4};
+        assertEquals(4, Algorithms.findMissingNumber(arr));
+    }
+
+    @Test(timeout = 1000)
+    public void testFindMissingNumberExample5() {
+        int[] arr = {};
+        assertEquals(0, Algorithms.findMissingNumber(arr));
+    }
+
+    @Test(timeout = 1000)
+    public void testFindMissingNumberExample6() {
+        int[] arr = {1, 3, 5, 7, 9};
+        assertEquals(0, Algorithms.findMissingNumber(arr));
     }
 }
