@@ -1,0 +1,6 @@
+
+£%squid:RedundantThrowsDeclarationCheck"mRemove the declaration of thrown exception 'java.lang.IllegalArgumentException' which is a runtime exception.(ß¢ôðþÿÿÿÿ
+1squid:S1220""Move this file to a named package.
+Ÿ%squid:RedundantThrowsDeclarationCheck'"nRemove the declaration of thrown exception 'java.lang.IndexOutOfBoundsException' which is a runtime exception.(Â–ùê
+ž%squid:RedundantThrowsDeclarationCheck9"mRemove the declaration of thrown exception 'java.lang.IllegalArgumentException' which is a runtime exception.(˜á§¶
+¤%squid:RedundantThrowsDeclarationCheck"nRemove the declaration of thrown exception 'java.lang.IndexOutOfBoundsException' which is a runtime exception.(™íþ”ûÿÿÿÿ

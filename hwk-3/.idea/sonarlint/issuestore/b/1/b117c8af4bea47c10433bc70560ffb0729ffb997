@@ -1,0 +1,8 @@
+
+Nsquid:S1068
+"+Remove this unused "current" private field.(‚°ËÙüÿÿÿÿ8ŒÑ‡õÑ-
+dsquid:HiddenFieldCheck,";Rename "current" which hides the field declared at line 10.(­Ð Ï8ŒÑ‡õÑ-
+msquid:S1149"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(²€¾8¼ˆ»¥Ï-
+hsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¢úB8œÉúôÑ-
+1squid:S1220""Move this file to a named package.
+qsquid:S2272"NAdd a "NoSuchElementException" for iteration beyond the end of the collection.(¤¿ðßýÿÿÿÿ8Š—¥Ï-
