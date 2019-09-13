@@ -101,19 +101,22 @@ public class BinaryTree<E> implements Tree<E> {
     /**
      * Determines whether the parameter tree is a binary search tree or not
      * This is determined by the definition of a binary search tree provided in the lectures
+     * <p>
+     * Big O notation: O(n)
+     * <p>
+     * Worst case: Since this recursive call checks the entire binary tree the worst case and the
+     * average case are the same time complexity
+     * <p>
+     * Amortised complexity: Methods do not differ
      *
      * @param tree the tree to check
      * @return true if this tree is a BST, otherwise false
      */
     public static <T extends Comparable<T>> boolean isBST(BinaryTree<T> tree) {
-        return validate(tree);
-    }
-
-    public static <T extends Comparable<T>> boolean validate(BinaryTree<T> tree) {
         if (tree == null) return true;
         if (tree.getLeft() == null || tree.getRight() == null) return false;
         if (tree.getLeft().getRoot().compareTo(tree.getRight().getRoot()) > 0) {
-            return validate(tree.getLeft()) && validate(tree.getRight());
+            return isBST(tree.getLeft()) && isBST(tree.getRight());
         }
         return true;
     }

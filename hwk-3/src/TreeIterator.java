@@ -19,11 +19,35 @@ public class TreeIterator<E> implements Iterator<E> {
         this.root = root;
     }
 
+    /**
+     * Big O notation: O(1)
+     * <p>
+     * Worst case: Since this method runs in constant time, the worst case is
+     * also the average case.
+     * <p>
+     * Amortised complexity: Methods do not differ
+     *
+     * @return boolean
+     */
     @Override
     public boolean hasNext() {
         return set.isEmpty();
     }
 
+    /**
+     * Big O notation: O(n)
+     * <p>
+     * Worst case: The worst case time complexity of this method would be the case
+     * where the next tree node is a StandardTree that has many children. Each root
+     * of the each children tree would be pushed to the stack, this has a time complexity
+     * of O(n).
+     * <p>
+     * Amortised complexity: O(1), since majority of the calls are just going to be getting
+     * the top of the stack they will run in constant time. However, if the push operation runs
+     * it will result is a time complexity of O(n). Overall the amortised complexity would be O(1).
+     *
+     * @return E
+     */
     @Override
     public E next() {
         if (hasNext()) {
