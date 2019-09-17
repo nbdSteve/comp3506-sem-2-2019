@@ -116,7 +116,7 @@ public class EmployeeTree {
         }
         for (int i = 0; i < employeeTree.getChildren().size(); i++) {
             if (employeeTree.getChildren().get(i).getRoot() == empId) {
-                return (StandardTree) employeeTree.getChildren().get(i);
+                return (StandardTree<Integer>) employeeTree.getChildren().get(i);
             }
             getEmpTree(empId, employeeTree);
         }

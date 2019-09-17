@@ -1,11 +1,14 @@
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Stack;
 
 /**
  * An iterator for the tree ADT that performs a preorder traversal
  */
 public class TreeIterator<E> implements Iterator<E> {
+    // store instance of the stack of trees
     private Stack<Tree<E>> set;
+    // store instance of the tree root
     private Tree<E> root;
 
     /**
@@ -17,6 +20,7 @@ public class TreeIterator<E> implements Iterator<E> {
     public TreeIterator(Tree<E> root) {
         this.set = new Stack<>();
         this.root = root;
+        set.push(this.root);
     }
 
     /**
@@ -31,7 +35,7 @@ public class TreeIterator<E> implements Iterator<E> {
      */
     @Override
     public boolean hasNext() {
-        return set.isEmpty();
+        return !set.isEmpty();
     }
 
     /**
@@ -47,17 +51,17 @@ public class TreeIterator<E> implements Iterator<E> {
      * it will result is a time complexity of O(n). Overall the amortised complexity would be O(1).
      *
      * @return E
+     * @throws NoSuchElementException
      */
     @Override
     public E next() {
-        if (hasNext()) {
-            set.push(root);
-            return root.getRoot();
+        if (!hasNext()) {
+            throw new NoSuchElementException();
         }
         Tree<E> current = set.pop();
         for (int i = current.getChildren().size() - 1; i >= 0; i--) {
             set.push(current.getChildren().get(i));
         }
-        return set.peek().getRoot();
+        return current.getRoot();
     }
 }

@@ -17,6 +17,25 @@ public class TreeTest {
     }
 
     @Test(timeout=1000)
+    public void testHasNext1() {
+        BinaryTree<Integer> root = new BinaryTree<>(1);
+        BinaryTree<Integer> left = new BinaryTree<>(2);
+        BinaryTree<Integer> leftLeft = new BinaryTree<>(3);
+
+        root.setLeft(left);
+        left.setLeft(leftLeft);
+
+        Iterator<Integer> iter = root.iterator();
+        assertTrue(iter.hasNext());
+        iter.next();
+        assertTrue(iter.hasNext());
+        iter.next();
+        assertTrue(iter.hasNext());
+        iter.next();
+        assertFalse(iter.hasNext());
+    }
+
+    @Test(timeout=1000)
     public void testNext() {
         BinaryTree<Integer> root = new BinaryTree<>(1);
         BinaryTree<Integer> left = new BinaryTree<>(2);
