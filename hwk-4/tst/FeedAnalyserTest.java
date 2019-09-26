@@ -82,7 +82,6 @@ public class FeedAnalyserTest {
         assertEquals(Arrays.asList(sampleFeed[4], sampleFeed[5], sampleFeed[9]),
                 sampleAnalyser.getPostsWithText("no"));
 
-        assertEquals(Collections.singletonList(sampleFeed[8]),
-                sampleAnalyser.getPostsWithText("priority - I have a hea"));
+        assertEquals(Collections.emptyList(), sampleAnalyser.getPostsWithText(""));
     }
 }
