@@ -36,7 +36,6 @@ public class FeedAnalyserTest {
                 sampleAnalyser.getPostsBetweenDates("emily",
                         Util.parseDate("03/01/2019 12:00:00"),
                         Util.parseDate("03/01/2019 14:00:00")));
-
     }
 
     @Test(timeout=1000)

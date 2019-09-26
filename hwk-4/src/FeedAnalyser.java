@@ -4,8 +4,11 @@ import java.util.*;
  * Class that implements the social media feed searches
  */
 public class FeedAnalyser {
+    // store list of the feed items
     private List<FeedItem> feedItems;
+    // store a map of feed items that are sorted by username
     private Map<String, List<FeedItem>> feedItemsByUsername;
+    // store a stack of the feed items, this is sorted by upvotes
     private Stack<FeedItem> itemsByUpvotes;
 
     /**
@@ -61,7 +64,15 @@ public class FeedAnalyser {
     public List<FeedItem> getPostsBetweenDates(String username, Date startDate, Date endDate) {
         // initialise the result set
         List<FeedItem> result = new ArrayList<>();
-        if (username == null) return result;
+        if (username == null) {
+            return result;
+        }
+        if (startDate == null) {
+            startDate = feedItems.get(0).getDate();
+        }
+        if (endDate == null ){
+            endDate = feedItems.get(feedItems.size() - 1).getDate();
+        }
         // check each feed item posted by the respective username
         for (FeedItem item : feedItemsByUsername.get(username)) {
             if (item.getDate().after(endDate)) {
@@ -70,6 +81,7 @@ public class FeedAnalyser {
                 result.add(item);
             }
         }
+        // sort results by date
         result.sort(Comparator.comparing(FeedItem::getDate));
         return result;
     }
@@ -124,18 +136,25 @@ public class FeedAnalyser {
      */
     public List<FeedItem> getPostsWithText(String pattern) {
         List<FeedItem> validItems = new ArrayList<>();
-//        if (pattern == null || pattern.length() <= 0) return validItems;
         for (FeedItem item : feedItems) {
-            if (patternFound(item.getContent().toCharArray(), pattern.toCharArray())) {
+            if (isPatternFound(item.getContent().toCharArray(), pattern.toCharArray())) {
                 validItems.add(item);
             }
         }
+        // sort the list by id
         validItems.sort(Comparator.comparing(FeedItem::getId));
         return validItems;
     }
 
-    public boolean patternFound(char[] text, char[] pattern) {
-        if (text == null || pattern == null || pattern.length == 0 || pattern.length > text.length) {
+    /**
+     * KMP algorithm helper function, returns true if the pattern is matched - false otherwise
+     *
+     * @param text    char[], the text to search
+     * @param pattern char[], the pattern to find
+     * @return boolean
+     */
+    public boolean isPatternFound(char[] text, char[] pattern) {
+        if (text == null || pattern == null || pattern.length <= 0 || pattern.length > text.length) {
             return false;
         }
         int i = 0;
