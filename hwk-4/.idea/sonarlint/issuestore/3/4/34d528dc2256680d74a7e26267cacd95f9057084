@@ -1,11 +1,4 @@
 
-Qsquid:S2864)"4Iterate over the "entrySet" instead of the "keySet".(ßÚ8®ŸäÓ-
-Nsquid:S1135j"2Complete the task associated to this TODO comment.(×Œ±®ûÿÿÿÿ
-Qsquid:S2864A"4Iterate over the "entrySet" instead of the "keySet".(ßÚ8¸£äÓ-
-nsquid:CommentedOutCodeLinem"<This block of commented-out lines of code should be removed.(è­“¾øÿÿÿÿ8Ó•„äÓ-
-Nsquid:S1135Y"2Complete the task associated to this TODO comment.(×Œ±®ûÿÿÿÿ
-nsquid:CommentedOutCodeLiner"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8Ó•„äÓ-
-nsquid:CommentedOutCodeLinep"<This block of commented-out lines of code should be removed.(´ÅèÆıÿÿÿÿ8Ó•„äÓ-
-¡%squid:RedundantThrowsDeclarationCheckX"kRemove the declaration of thrown exception 'java.util.NoSuchElementException' which is a runtime exception.(íàÜÑüÿÿÿÿ
-Gsquid:S1168j"+Return an empty collection instead of null.(×Œ±®ûÿÿÿÿ
+¨%squid:RedundantThrowsDeclarationCheckl"kRemove the declaration of thrown exception 'java.util.NoSuchElementException' which is a runtime exception.(íàÜÑüÿÿÿÿ8¢ÓÃåÓ-
 1squid:S1220""Move this file to a named package.
+ssquid:S1149	"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(²ŸÑÓùÿÿÿÿ8¿ˆÖ-

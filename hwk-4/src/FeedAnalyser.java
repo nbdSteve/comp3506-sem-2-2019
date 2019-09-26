@@ -5,6 +5,7 @@ import java.util.*;
  */
 public class FeedAnalyser {
     private List<FeedItem> feedItems;
+    private Map<String, List<FeedItem>> feedItemsByUsername;
     private Stack<FeedItem> itemsByUpvotes;
 
     /**
@@ -14,13 +15,33 @@ public class FeedAnalyser {
      */
     public FeedAnalyser(String filename) {
         Iterator<FeedItem> iter = new Util.FileIterator(filename);
+        // initialize data structures
         feedItems = new ArrayList<>();
+        itemsByUpvotes = new Stack<>();
+        feedItemsByUsername = new HashMap<>();
+        // add items to respective data structures
         while (iter.hasNext()) {
             FeedItem item = iter.next();
             feedItems.add(item);
+            // add all of the feed items to the stack
+            itemsByUpvotes.push(item);
+            // add the feed item to the hashmap
+            if (!feedItemsByUsername.containsKey(item.getUsername())) {
+                // create a new list of feed items
+                List<FeedItem> list = new ArrayList<>();
+                list.add(item);
+                // create a new entry if one doesn't exist
+                feedItemsByUsername.put(item.getUsername(), list);
+            } else {
+                feedItemsByUsername.get(item.getUsername()).add(item);
+            }
         }
-        itemsByUpvotes = new Stack<>();
-        itemsByUpvotes.addAll(feedItems);
+        // sort all of the entries by date posted
+        for (Map.Entry<String, List<FeedItem>> entry : feedItemsByUsername.entrySet()) {
+            entry.getValue().sort(Comparator.comparing(FeedItem::getDate));
+        }
+        // sort the stack based on upvotes
+        itemsByUpvotes.sort(Comparator.comparing(FeedItem::getUpvotes));
     }
 
     /**
@@ -38,14 +59,18 @@ public class FeedAnalyser {
      * @ensure result != null
      */
     public List<FeedItem> getPostsBetweenDates(String username, Date startDate, Date endDate) {
-        if (username == null) return new ArrayList<>();
+        // initialise the result set
         List<FeedItem> result = new ArrayList<>();
-        for (FeedItem item : feedItems) {
-            if (!item.getUsername().equalsIgnoreCase(username)) continue;
-            if (item.getDate().after(startDate) && item.getDate().before(endDate)) {
+        if (username == null) return result;
+        // check each feed item posted by the respective username
+        for (FeedItem item : feedItemsByUsername.get(username)) {
+            if (item.getDate().after(endDate)) {
+                return result;
+            } else if (item.getDate().after(startDate) && item.getDate().before(endDate)) {
                 result.add(item);
             }
         }
+        result.sort(Comparator.comparing(FeedItem::getDate));
         return result;
     }
 
@@ -61,16 +86,12 @@ public class FeedAnalyser {
      */
     public FeedItem getPostAfterDate(String username, Date searchDate) {
         if (username == null || searchDate == null) return null;
-        List<FeedItem> validItems = new ArrayList<>();
-        for (FeedItem item : feedItems) {
-            if (!item.getUsername().equals(username)) continue;
+        for (FeedItem item : feedItemsByUsername.get(username)) {
             if (item.getDate().equals(searchDate) || item.getDate().after(searchDate)) {
-                validItems.add(item);
+                return item;
             }
         }
-        if (validItems.isEmpty()) return null;
-        validItems.sort(Comparator.comparing(FeedItem::getDate));
-        return validItems.get(0);
+        return null;
     }
 
     /**
@@ -86,7 +107,6 @@ public class FeedAnalyser {
      */
     public FeedItem getHighestUpvote() throws NoSuchElementException {
         if (itemsByUpvotes.isEmpty()) throw new NoSuchElementException();
-        itemsByUpvotes.sort(Comparator.comparing(FeedItem::getUpvotes));
         return itemsByUpvotes.pop();
     }
 
@@ -104,10 +124,33 @@ public class FeedAnalyser {
      */
     public List<FeedItem> getPostsWithText(String pattern) {
         List<FeedItem> validItems = new ArrayList<>();
-        if (pattern == null || pattern.length() <= 0) return validItems;
+//        if (pattern == null || pattern.length() <= 0) return validItems;
         for (FeedItem item : feedItems) {
-            if (item.getContent().contains(pattern)) validItems.add(item);
+            if (patternFound(item.getContent().toCharArray(), pattern.toCharArray())) {
+                validItems.add(item);
+            }
         }
+        validItems.sort(Comparator.comparing(FeedItem::getId));
         return validItems;
+    }
+
+    public boolean patternFound(char[] text, char[] pattern) {
+        if (text == null || pattern == null || pattern.length == 0 || pattern.length > text.length) {
+            return false;
+        }
+        int i = 0;
+        int j = 0;
+        while (i < text.length) {
+            if (text[i] == pattern[j]) {
+                if (j == pattern.length - 1) return true;
+                i++;
+                j++;
+            } else if (j > 0) {
+                j = 0;
+            } else {
+                i++;
+            }
+        }
+        return false;
     }
 }
